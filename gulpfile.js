@@ -275,6 +275,17 @@ gulp.task('copy:pom', function() {
   fs.writeFileSync(pom, new Buffer(tpl(_.merge({}, null, globalVar, helpers))));
 });
 
+gulp.task('generate:spec', ['parse'], function() {
+  fs.writeFileSync(globalVar.currentDir + "spec.json", require('circular-json')
+      .stringify(global.parsed, function(k,v) {
+        if(k !== "javascriptNode"
+            && k !== "scriptElement"
+            && k !== "orig" 
+            && k !== "bowerData"
+            && k !== "observerNode") return v;
+        }, 2));
+});
+
 gulp.task('default', function(){
   if(args.pom) {
     runSequence('clean', 'bower:install', 'generate', 'copy:lib', 'copy:pom');

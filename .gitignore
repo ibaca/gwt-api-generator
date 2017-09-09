@@ -146,3 +146,8 @@ node_modules
 src/**/bower_components
 src/**/polymer/client/element
 src/**/polymer/client/widget
+
+
+# Generated files, easier to try using gulp
+spec.json
+src/**
